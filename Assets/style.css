@@ -1,3 +1,12 @@
 .hidden {
     display: none;
 }
+
+.choice {
+    background-color: pink;
+    margin: .4rem;
+}
+
+.choice:hover {
+    cursor: pointer;
+}

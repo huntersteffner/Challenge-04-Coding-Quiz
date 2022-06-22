@@ -14,9 +14,12 @@ const ans1 = document.querySelector('#ans-1')
 const ans2 = document.querySelector('#ans-2')
 const ans3 = document.querySelector('#ans-3')
 const ans4 = document.querySelector('#ans-4')
+const choice = document.querySelectorAll('.choice')
+const score = document.getElementById('score')
 
 const numOfQuestions = 5
 let currentAnswer = ''
+let points = 0
 
 // To save time, I copied and pasted several questions from https://electronicspost.com/multiple-choice-questions-and-answers-on-web-design/
 const questions = [{
@@ -58,10 +61,10 @@ const pickQuestion = function() {
     console.log(currentQuestion.question)
 
     question.innerHTML = currentQuestion.question
-    ans1.innerHTML = `${currentQuestion.a}`
-    ans2.innerHTML = `${currentQuestion.b}`
-    ans3.innerHTML = `${currentQuestion.c}`
-    ans4.innerHTML = `${currentQuestion.d}`
+    ans1.innerHTML = currentQuestion.a
+    ans2.innerHTML = currentQuestion.b
+    ans3.innerHTML = currentQuestion.c
+    ans4.innerHTML = currentQuestion.d
 
     currentAnswer = currentQuestion.ans
 
@@ -91,21 +94,58 @@ startBtn.addEventListener('click', function(){
 //     labelD.checked = false
 
 // }
-submitBtn.addEventListener('click', function(e) {
-    // e.preventDefault()
-    console.log(currentAnswer)
-    pickQuestion()
-    if (currentAnswer === 'A' && labelA.checked) {
+const evaluateAnswer = function() {
+    
+    // pickQuestion()
+    if (currentAnswer === 'A' && ans1.clicked == true) {
         console.log('Correct')
-    } else if (currentAnswer === 'B' && labelB.checked) {
+    } else if (currentAnswer === 'B' && ans2.clicked == true) {
         console.log('Correct')
-    } else if (currentAnswer === 'C' && labelC.checked) {
+    } else if (currentAnswer === 'C' && ans3.clicked == true) {
         console.log('Correct')
-    } else if (currentAnswer === 'D' && labelD.checked) {
+    } else if (currentAnswer === 'D' && ans4.clicked == true) {
         console.log('Correct')
     }
     
     // clearRadio()
+}
+
+ans1.addEventListener('click', function() {
+    if (currentAnswer === 'A') {
+        points ++
+        score.innerHTML = points
+    }
+})
+ans2.addEventListener('click', function() {
+    if (currentAnswer === 'B') {
+        points ++
+        console.log(points)
+        score.innerHTML = points
+    }
+})
+ans3.addEventListener('click', function() {
+    if (currentAnswer === 'C') {
+        points ++
+        console.log(points)
+        score.innerHTML = points
+    }
+})
+ans4.addEventListener('click', function() {
+    if (currentAnswer === 'D') {
+        points ++
+        console.log(points)
+        score.innerHTML = points
+    }
 })
 
+for (let i = 0; i < choice.length; i++) {
+    choice[i].addEventListener('click', function() {
+        evaluateAnswer()
+        pickQuestion()
 
+    })
+}
+
+// choice.addEventListener('click',function(e) {
+//     console.log('Test')
+// })
