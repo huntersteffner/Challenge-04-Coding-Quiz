@@ -1,6 +1,6 @@
 "use strict";
 
-// DOM Variables
+// DOM Elements
 const startMenu = document.querySelector('.start-menu')
 const quizContainer = document.querySelector('.quiz-container')
 const startBtn = document.getElementById('start-btn')
@@ -16,11 +16,15 @@ const ans3 = document.querySelector('#ans-3')
 const ans4 = document.querySelector('#ans-4')
 const choice = document.querySelectorAll('.choice')
 const score = document.getElementById('score')
+const secondsEl = document.getElementById('seconds')
 
+// Global Variables
 const numOfQuestions = 5
 let currentAnswer = ''
 let points = 0
+let countdownSeconds = 120
 
+// Quiz Questions
 // To save time, I copied and pasted several questions from https://electronicspost.com/multiple-choice-questions-and-answers-on-web-design/
 const questions = [{
     question: 'What is HTML used for?',
@@ -46,15 +50,97 @@ const questions = [{
 },
  {
     question: 'Which of the following statements is false?',
-        a: 'A: You can make a website without using HTML',
-        b: 'B: You can make a website without using PHP',
-        c: 'C: You can make a website without using CSS',
-        d: 'D: You can make a website without using Javascript',
+    a: 'A: You can make a website without using HTML',
+    b: 'B: You can make a website without using PHP',
+    c: 'C: You can make a website without using CSS',
+    d: 'D: You can make a website without using Javascript',
+    ans: 'A'
+},
+ {
+    question: 'What is WordPress?',
+        a: 'A: It is a software used to press text',
+        b: 'B: It is a text formatting software',
+        c: 'C: It is a CMS (Content Management System)',
+        d: 'D: It is mail service',
+        ans: 'C'
+},
+ {
+    question: 'What does SQL stand for',
+        a: 'A: Structured Query Language',
+        b: 'B: Statistical Query Language',
+        c: 'C: Superior Questions Lot',
+        d: 'D: Standard Query Lot',
         ans: 'A'
+},
+ {
+    question: 'Which of the following is true about Javascript?',
+        a: 'A: It is a sever side scripting language',
+        b: 'B: It is a client side scripting language',
+        c: 'C: It is a Software',
+        d: 'D: It is a database',
+        ans: 'B'
+},
+ {
+    question: 'Which of the following is true about PHP?',
+        a: 'A: It is a server side scripting language',
+        b: 'B: It is a client side scripting language',
+        c: 'C: It is a Software',
+        d: 'D: It is a database',
+        ans: 'A'
+},
+ {
+    question: 'Which of the following is true?',
+        a: 'A: You need a server to host your website files',
+        b: 'B: You don’t need a server to host your website files',
+        c: 'C: You can create a website without using HTML',
+        d: 'D: You can’t create a website without a CMS',
+        ans: 'A'
+},
+ {
+    question: 'Which of the following softwares could be used to build a website?',
+        a: 'A: Power Point',
+        b: 'B: Excel',
+        c: 'C: Dream Weaver',
+        d: 'D: ERP',
+        ans: 'C'
+},
+ {
+    question: 'Which of the following statements is false about hosting?',
+        a: 'A: Shared hosting is cheaper than dedicated hosting',
+        b: 'B: Shared hosting is safer than dedicated hosting',
+        c: 'C: Dedicated hosting is safer than shared hosting',
+        d: 'D: Though more expensive than shared hosting, Dedicated hosting is more secure',
+        ans: 'B'
+},
+ {
+    question: 'Which of the following is not a web hosting company?',
+        a: 'A: Hostgator',
+        b: 'B: Blue Host',
+        c: 'C: WPX Hosting',
+        d: 'D: Facebook',
+        ans: 'D'
+},
+ {
+    question: 'Which of the following statements is true?',
+        a: 'A: The web designer shouldn’t just be concerned about the looks but also about user interface',
+        b: 'B: Usability is very important in web design',
+        c: 'C: A and B',
+        d: 'D: None of the above',
+        ans: 'C'
 },
 
 ]
 
+// Timer 
+const updateTimer = function() {
+
+    secondsEl.innerHTML = countdownSeconds
+
+    countdownSeconds--
+}
+
+
+// Function to randomly select a question from the list
 const pickQuestion = function() {
     let questionPick = Math.floor(Math.random() * questions.length)
     let currentQuestion = questions[questionPick]
@@ -75,77 +161,59 @@ const pickQuestion = function() {
 
 }
 
+// Function that runs to start quiz. It should hide start screen, display quiz container, begin countdown timer, and randomly select a question.
 const startQuiz = function() {
     startMenu.classList.toggle('hidden')
     quizContainer.classList.toggle('hidden')
+    setInterval(updateTimer, 1000)
     pickQuestion()
 }
 
-
+// Button that begins quiz
 startBtn.addEventListener('click', function(){
-    console.log('test')
     startQuiz()
 })
 
-// const clearRadio = function() {
-//     labelA.checked = false
-//     labelB.checked = false
-//     labelC.checked = false
-//     labelD.checked = false
-
-// }
-const evaluateAnswer = function() {
-    
-    // pickQuestion()
-    if (currentAnswer === 'A' && ans1.clicked == true) {
-        console.log('Correct')
-    } else if (currentAnswer === 'B' && ans2.clicked == true) {
-        console.log('Correct')
-    } else if (currentAnswer === 'C' && ans3.clicked == true) {
-        console.log('Correct')
-    } else if (currentAnswer === 'D' && ans4.clicked == true) {
-        console.log('Correct')
-    }
-    
-    // clearRadio()
-}
 
 ans1.addEventListener('click', function() {
     if (currentAnswer === 'A') {
         points ++
         score.innerHTML = points
+    } else {
+        countdownSeconds = countdownSeconds - 10
     }
 })
 ans2.addEventListener('click', function() {
     if (currentAnswer === 'B') {
         points ++
-        console.log(points)
         score.innerHTML = points
+    } else {
+        countdownSeconds = countdownSeconds - 10
     }
 })
 ans3.addEventListener('click', function() {
     if (currentAnswer === 'C') {
         points ++
-        console.log(points)
         score.innerHTML = points
+    } else {
+        countdownSeconds = countdownSeconds - 10
     }
 })
 ans4.addEventListener('click', function() {
     if (currentAnswer === 'D') {
         points ++
-        console.log(points)
         score.innerHTML = points
+    } else {
+        countdownSeconds = countdownSeconds - 10
     }
 })
 
 for (let i = 0; i < choice.length; i++) {
     choice[i].addEventListener('click', function() {
-        evaluateAnswer()
         pickQuestion()
 
     })
 }
 
-// choice.addEventListener('click',function(e) {
-//     console.log('Test')
-// })
+
+
