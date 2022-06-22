@@ -16,13 +16,18 @@ const ans3 = document.querySelector('#ans-3')
 const ans4 = document.querySelector('#ans-4')
 const choice = document.querySelectorAll('.choice')
 const score = document.getElementById('score')
+const timer = document.getElementById('timer')
 const secondsEl = document.getElementById('seconds')
+const highScoreContainer = document.querySelector('.high-score-container')
 
 // Global Variables
 const numOfQuestions = 5
 let currentAnswer = ''
 let points = 0
-let countdownSeconds = 120
+let countdownSeconds = 10
+let refreshIntervalID
+
+
 
 // Quiz Questions
 // To save time, I copied and pasted several questions from https://electronicspost.com/multiple-choice-questions-and-answers-on-web-design/
@@ -137,6 +142,7 @@ const updateTimer = function() {
     secondsEl.innerHTML = countdownSeconds
 
     countdownSeconds--
+    console.log(countdownSeconds)
 }
 
 
@@ -165,7 +171,7 @@ const pickQuestion = function() {
 const startQuiz = function() {
     startMenu.classList.toggle('hidden')
     quizContainer.classList.toggle('hidden')
-    setInterval(updateTimer, 1000)
+    refreshIntervalID = setInterval(updateTimer, 1000)
     pickQuestion()
 }
 
@@ -174,7 +180,7 @@ startBtn.addEventListener('click', function(){
     startQuiz()
 })
 
-
+// Validate whether the correct answer was selected
 ans1.addEventListener('click', function() {
     if (currentAnswer === 'A') {
         points ++
@@ -208,6 +214,7 @@ ans4.addEventListener('click', function() {
     }
 })
 
+// Listens to when you select an answer
 for (let i = 0; i < choice.length; i++) {
     choice[i].addEventListener('click', function() {
         pickQuestion()
@@ -215,5 +222,14 @@ for (let i = 0; i < choice.length; i++) {
     })
 }
 
+const gameOver = function() {
+    highScoreContainer.classList.toggle('hidden')
+}
 
-
+const timesUp = function() {
+    if(countdownSeconds < 0) {
+        clearInterval(refreshIntervalID)
+        console.log('Times up')
+    }
+}
+timesUp()
