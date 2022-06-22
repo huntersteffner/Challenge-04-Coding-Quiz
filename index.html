@@ -16,28 +16,20 @@
       <button id="start-btn">Start Quiz</button>
     </div>
 
-    <div class="quiz-container">
+    <div class="hidden quiz-container">
       <h1>Question 1</h1>
       <p id="question">Sample Question</p>
       <form>
-        <div>
-          <input type="radio" id="a" name="a" />
-          <label id="ans-1" for="a">A: Wrong Answer</label>
-        </div>
-        <div>
-          <input type="radio" id="b" nbme="b" />
-          <label id="ans-2" for="b">B: Right Answer</label>
-        </div>
-        <div>
-          <input type="radio" id="c" name="c" />
-          <label id="ans-3" for="c">C: Wrong Answer</label>
-        </div>
-        <div>
-          <input type="radio" id="c" name="c" />
-          <label id="ans-4" for="d">D: Wrong Answer</label>
-        </div>
-        <button id="submit">Submit</button>
+        <input type="radio" id="a" name="quiz" />
+        <label id="ans-1" for="a">A: Wrong Answer</label>
+        <input type="radio" id="b" name="quiz" />
+        <label id="ans-2" for="b">B: Right Answer</label>
+        <input type="radio" id="c" name="quiz" />
+        <label id="ans-3" for="c">C: Wrong Answer</label>
+        <input type="radio" id="c" name="quiz" />
+        <label id="ans-4" for="d">D: Wrong Answer</label>
       </form>
+      <button id="submit">Submit</button>
     </div>
 
     <script src="./Assets/script.js"></script>

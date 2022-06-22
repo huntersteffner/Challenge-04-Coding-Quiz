@@ -4,37 +4,77 @@
 const startMenu = document.querySelector('.start-menu')
 const quizContainer = document.querySelector('.quiz-container')
 const startBtn = document.getElementById('start-btn')
+const submitBtn = document.getElementById('submit')
 const question = document.querySelector('#question')
+const labelA = document.getElementById('a')
+const labelB = document.getElementById('b')
+const labelC = document.getElementById('c')
+const labelD = document.getElementById('d')
 const ans1 = document.querySelector('#ans-1')
 const ans2 = document.querySelector('#ans-2')
 const ans3 = document.querySelector('#ans-3')
 const ans4 = document.querySelector('#ans-4')
 
 const numOfQuestions = 5
+let currentAnswer = ''
 
-const questions = [['My name is bob'],['A: Not really'],['B: Wrong'],['C: Right'], ['D: Is for dog'],['I like water'],['A: Fish'],['B: Right'],['C: Wrong'],['D: Cow']]
+// To save time, I copied and pasted several questions from https://electronicspost.com/multiple-choice-questions-and-answers-on-web-design/
+const questions = [{
+    question: 'What is HTML used for?',
+        a: 'A: To send an email',
+        b: 'B: To structure the elements to be viewed in page',
+        c: 'C: Antivirus',
+        d: 'D: Spellcheck',
+        ans: 'B'
+}, {
+    question: 'To make your website mobile friendly, you can make your website?',
+        a: 'A: Responsive',
+        b: 'B: Reactive',
+        c: 'C: Fast Loading',
+        d: 'D: Light',
+        ans: 'A'
+}, {
+    question: 'What does CSS stand for?',
+        a: 'A: Current Style Sheets',
+        b: 'B: Current Sheets Style',
+        c: 'C: Cascading Style Sheets',
+        d: 'D: Cascading Sheets Style',
+        ans: 'C',
+},
+ {
+    question: 'Which of the following statements is false?',
+        a: 'A: You can make a website without using HTML',
+        b: 'B: You can make a website without using PHP',
+        c: 'C: You can make a website without using CSS',
+        d: 'D: You can make a website without using Javascript',
+        ans: 'A'
+},
 
-const questions2 = [['My name is bob', 'A: Not really', 'B: Wrong', 'C: Right', 'D: is for dog'], ['I like water','A: Fish', 'B: Right', 'C: Wrong', 'D: Cow'],['Question','A: R','B: W','C: W', 'D: W']]
-
-console.log(questions2[0][2])
-console.log(questions2.length)
+]
 
 const pickQuestion = function() {
-    let questionPick = Math.floor(Math.random() * questions2.length)
-    let currentQuestion = questions2[questionPick]
-    console.log(currentQuestion[2])
-    // console.log(`${questions2[currentQuestion}`)
-    question.innerHTML = `${currentQuestion[0]}`
-    ans1.innerHTML = `${currentQuestion[1]}`
-    ans2.innerHTML = `${currentQuestion[2]}`
-    ans3.innerHTML = `${currentQuestion[3]}`
-    ans4.innerHTML = `${currentQuestion[4]}`
+    let questionPick = Math.floor(Math.random() * questions.length)
+    let currentQuestion = questions[questionPick]
+    console.log(currentQuestion.question)
+
+    question.innerHTML = currentQuestion.question
+    ans1.innerHTML = `${currentQuestion.a}`
+    ans2.innerHTML = `${currentQuestion.b}`
+    ans3.innerHTML = `${currentQuestion.c}`
+    ans4.innerHTML = `${currentQuestion.d}`
+
+    currentAnswer = currentQuestion.ans
+
+    questions.splice(questionPick, 1)
+
+    console.log(currentAnswer)
+    
 
 }
 
 const startQuiz = function() {
-    // startMenu.classList.toggle('hidden')
-    // quizContainer.classList.toggle('hidden')
+    startMenu.classList.toggle('hidden')
+    quizContainer.classList.toggle('hidden')
     pickQuestion()
 }
 
@@ -44,5 +84,28 @@ startBtn.addEventListener('click', function(){
     startQuiz()
 })
 
+// const clearRadio = function() {
+//     labelA.checked = false
+//     labelB.checked = false
+//     labelC.checked = false
+//     labelD.checked = false
+
+// }
+submitBtn.addEventListener('click', function(e) {
+    // e.preventDefault()
+    console.log(currentAnswer)
+    pickQuestion()
+    if (currentAnswer === 'A' && labelA.checked) {
+        console.log('Correct')
+    } else if (currentAnswer === 'B' && labelB.checked) {
+        console.log('Correct')
+    } else if (currentAnswer === 'C' && labelC.checked) {
+        console.log('Correct')
+    } else if (currentAnswer === 'D' && labelD.checked) {
+        console.log('Correct')
+    }
+    
+    // clearRadio()
+})
 
 
