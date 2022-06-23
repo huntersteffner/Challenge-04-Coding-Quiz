@@ -135,24 +135,32 @@ const questions = [{
 },
 
 ]
-const timesUp = function() {
+// const timesUp = function() {
     
-    console.log('Times up')
-    timer.innerHTML = 'Time\'s up!'
-    clearInterval(refreshIntervalID)
-    countdownSeconds === 0
-    gameOver()
-}
+//     console.log('Times up')
+//     timer.innerHTML = 'Time\'s up!'
+//     clearInterval(refreshIntervalID)
+//     countdownSeconds === 0
+//     gameOver()
+// }
 
 
-// Timer 
-const updateTimer = function() {
+// // Timer 
+// const updateTimer = function() {
 
-    secondsEl.innerHTML = countdownSeconds
+//     secondsEl.innerHTML = countdownSeconds
 
     
-    countdownSeconds--
-    console.log(countdownSeconds)
+//     countdownSeconds--
+//     console.log(countdownSeconds)
+// }
+
+const startTimer = function() {
+    if (secondsEl.innerHTML <= 0) {
+        gameOver()
+        timer.innerHTML = 'Time\'s up!'
+    }
+    secondsEl.innerHTML--
 }
 
 
@@ -181,14 +189,14 @@ const pickQuestion = function() {
 const startQuiz = function() {
     startMenu.classList.toggle('hidden')
     quizContainer.classList.toggle('hidden')
-    refreshIntervalID = setInterval(updateTimer, 1000)
-    setTimeout(timesUp, 10000)
+    refreshIntervalID = setInterval(startTimer, 1000)
     pickQuestion()
 }
 
 // Button that begins quiz
 startBtn.addEventListener('click', function(){
     startQuiz()
+    
 })
 
 // Validate whether the correct answer was selected
@@ -197,7 +205,7 @@ ans1.addEventListener('click', function() {
         points ++
         score.innerHTML = points
     } else {
-        countdownSeconds = countdownSeconds - 10
+        secondsEl.innerHTML -= 10
     }
 })
 ans2.addEventListener('click', function() {
@@ -205,7 +213,7 @@ ans2.addEventListener('click', function() {
         points ++
         score.innerHTML = points
     } else {
-        countdownSeconds = countdownSeconds - 10
+        secondsEl.innerHTML -= 10
     }
 })
 ans3.addEventListener('click', function() {
@@ -213,7 +221,7 @@ ans3.addEventListener('click', function() {
         points ++
         score.innerHTML = points
     } else {
-        countdownSeconds = countdownSeconds - 10
+        secondsEl.innerHTML -= 10
     }
 })
 ans4.addEventListener('click', function() {
@@ -221,7 +229,7 @@ ans4.addEventListener('click', function() {
         points ++
         score.innerHTML = points
     } else {
-        countdownSeconds = countdownSeconds - 10
+        secondsEl.innerHTML -= 10
     }
 })
 
@@ -234,7 +242,8 @@ for (let i = 0; i < choice.length; i++) {
 }
 
 const gameOver = function() {
-    highScoreContainer.classList.toggle('hidden')
+    highScoreContainer.classList.remove('hidden')
+    score.innerHTML = points
 }
 
 // const timesUp = function() {
