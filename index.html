@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="./Assets/reset.css" />
     <link rel="stylesheet" href="./Assets/style.css" />
   </head>
   <body>
@@ -23,27 +24,19 @@
         <h2>Score: <span id="score">0</span></h2>
         <h2 id="timer">Time: <span id="seconds">120</span> seconds</h2>
         <p id="question">Sample Question</p>
-        <form>
-          <!-- <input type="radio" id="a" name="quiz" />
-          <label id="ans-1" for="a">A: Wrong Answer</label>
-          <input type="radio" id="b" name="quiz" />
-          <label id="ans-2" for="b">B: Right Answer</label>
-          <input type="radio" id="c" name="quiz" />
-          <label id="ans-3" for="c">C: Wrong Answer</label>
-          <input type="radio" id="c" name="quiz" />
-          <label id="ans-4" for="d">D: Wrong Answer</label> -->
-        </form>
-        <button class="choice" id="ans-1"></button>
-        <button class="choice" id="ans-2"></button>
-        <button class="choice" id="ans-3"></button>
-        <button class="choice" id="ans-4"></button>
-        <div class="hidden high-score-container">
-          <h3>Game Over!</h3>
-          <p>You received <span id="score-final">0</span> points!</p>
-          <p>Enter your name below to save your score.</p>
-          <input type="text" name="high-score" id="high-score" />
-          <button id="submit-score">Submit</button>
+        <div class="questions-container">
+          <button class="choice" id="ans-1"></button>
+          <button class="choice" id="ans-2"></button>
+          <button class="choice" id="ans-3"></button>
+          <button class="choice" id="ans-4"></button>
         </div>
+      </div>
+      <div class="hidden high-score-container">
+        <h3>Game Over!</h3>
+        <p>You received <span id="score-final">0</span> points!</p>
+        <p>Enter your name below to save your score.</p>
+        <input type="text" name="high-score" id="high-score" />
+        <button id="submit-score">Submit</button>
       </div>
       <button id="modal-btn">High Scores</button>
       <button class="hidden play-again">Play Again!</button>
@@ -51,10 +44,7 @@
 
     <div class="hidden modal-container">
       <h2>High Scores</h2>
-      <ul id="highscore-list">
-        <li><span>Hunter</span>: <span>8</span></li>
-        <li><span>Bob</span>: <span>6</span></li>
-      </ul>
+      <ul id="highscore-list"></ul>
       <button id="modal-close">X</button>
     </div>
 

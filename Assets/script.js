@@ -147,15 +147,6 @@ const questions = [{
 ]
 
 
-// // Timer 
-// const updateTimer = function() {
-
-//     secondsEl.innerHTML = countdownSeconds
-
-    
-//     countdownSeconds--
-//     console.log(countdownSeconds)
-// }
 
 const startTimer = function() {
     if (secondsEl.innerHTML <= 0) {
@@ -260,6 +251,7 @@ function gameOver () {
     clearInterval(refreshIntervalID)
     console.log(points)
     scoreFinal.innerHTML = points
+    quizContainer.classList.toggle('hidden')
 }
 if (numOfQuestions === 0) {
     console.log('It works')
