@@ -135,12 +135,22 @@ const questions = [{
 },
 
 ]
+const timesUp = function() {
+    
+    console.log('Times up')
+    timer.innerHTML = 'Time\'s up!'
+    clearInterval(refreshIntervalID)
+    countdownSeconds === 0
+    gameOver()
+}
+
 
 // Timer 
 const updateTimer = function() {
 
     secondsEl.innerHTML = countdownSeconds
 
+    
     countdownSeconds--
     console.log(countdownSeconds)
 }
@@ -172,6 +182,7 @@ const startQuiz = function() {
     startMenu.classList.toggle('hidden')
     quizContainer.classList.toggle('hidden')
     refreshIntervalID = setInterval(updateTimer, 1000)
+    setTimeout(timesUp, 10000)
     pickQuestion()
 }
 
@@ -226,10 +237,12 @@ const gameOver = function() {
     highScoreContainer.classList.toggle('hidden')
 }
 
-const timesUp = function() {
-    if(countdownSeconds < 0) {
-        clearInterval(refreshIntervalID)
-        console.log('Times up')
-    }
-}
-timesUp()
+// const timesUp = function() {
+//     if(countdownSeconds < 0) {
+//         clearInterval(refreshIntervalID)
+//         console.log('Times up')
+//     }
+// }
+// timesUp()
+
+// setTimeout
