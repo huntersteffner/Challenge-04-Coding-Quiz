@@ -1,6 +1,7 @@
 "use strict";
 
 // DOM Elements
+const gameContainer = document.querySelector('.game-container')
 const startMenu = document.querySelector('.start-menu')
 const quizContainer = document.querySelector('.quiz-container')
 const startBtn = document.getElementById('start-btn')
@@ -16,9 +17,13 @@ const ans3 = document.querySelector('#ans-3')
 const ans4 = document.querySelector('#ans-4')
 const choice = document.querySelectorAll('.choice')
 const score = document.getElementById('score')
+const scoreFinal = document.getElementById('score-final')
 const timer = document.getElementById('timer')
 const secondsEl = document.getElementById('seconds')
 const highScoreContainer = document.querySelector('.high-score-container')
+const modalBtn = document.getElementById('modal-btn')
+const modalClose = document.getElementById('modal-close')
+const modalContainer = document.querySelector('.modal-container')
 
 // Global Variables
 const numOfQuestions = 5
@@ -243,7 +248,9 @@ for (let i = 0; i < choice.length; i++) {
 
 const gameOver = function() {
     highScoreContainer.classList.remove('hidden')
-    score.innerHTML = points
+    clearInterval(refreshIntervalID)
+    console.log(points)
+    scoreFinal.innerHTML = points
 }
 
 // const timesUp = function() {
@@ -255,3 +262,19 @@ const gameOver = function() {
 // timesUp()
 
 // setTimeout
+
+const modalAppear = function() {
+    modalContainer.classList.toggle('hidden')
+    gameContainer.classList.toggle('blur')
+}
+
+// Clicking on Modal Button
+modalBtn.addEventListener('click', function() {
+    modalAppear()
+    
+})
+
+// Clicking on Modal Close Button
+modalClose.addEventListener('click', function() {
+    modalAppear()
+})
