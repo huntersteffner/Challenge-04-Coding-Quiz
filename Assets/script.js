@@ -4,6 +4,7 @@
 const gameContainer = document.querySelector('.game-container')
 const startMenu = document.querySelector('.start-menu')
 const quizContainer = document.querySelector('.quiz-container')
+const questionNumber = document.getElementById('question-number')
 const startBtn = document.getElementById('start-btn')
 const submitBtn = document.getElementById('submit')
 const question = document.querySelector('#question')
@@ -146,8 +147,7 @@ const questions = [{
 
 ]
 
-
-
+// This is to begin the timer counting down from its starting time
 const startTimer = function() {
     if (secondsEl.innerHTML <= 0) {
         gameOver()
@@ -165,7 +165,7 @@ const pickQuestion = function() {
         let currentQuestion = questions[questionPick]
         console.log(currentQuestion.question)
     
-    
+    // Matching randomly picked question with an answer choice
         question.innerHTML = currentQuestion.question
         ans1.innerHTML = currentQuestion.a
         ans2.innerHTML = currentQuestion.b
@@ -175,8 +175,7 @@ const pickQuestion = function() {
         currentAnswer = currentQuestion.ans
     
         questions.splice(questionPick, 1)
-    
-        console.log(currentAnswer)
+        questionNumber.innerHTML++
         numOfQuestions = questions.length
     } else {
         gameOver()
@@ -238,29 +237,23 @@ ans4.addEventListener('click', function() {
 for (let i = 0; i < choice.length; i++) {
     choice[i].addEventListener('click', function() {
         pickQuestion();
-        console.log(questions.length)
-        console.log(questions)
-        console.log(numOfQuestions)
     })
 }
 
-
-
+// Function to run when game is over
 function gameOver () {
     highScoreContainer.classList.toggle('hidden')
     clearInterval(refreshIntervalID)
-    console.log(points)
     scoreFinal.innerHTML = points
     quizContainer.classList.toggle('hidden')
 }
+// When the questions run out, the game over function should run
 if (numOfQuestions === 0) {
-    console.log('It works')
     gameOver()
 }
-    
 
-
-// Modal
+// High Score Modal Logic
+// Saving highscore that is entered in local storage
 submitHighScore.addEventListener('click', function() {
     highScoreName = highScoreInput.value
     const newHighScoreLine = `<li>${highScoreName} : ${points}</li>`
@@ -281,13 +274,13 @@ for(let i = 0; i < localStorage.length; i++) {
     highScoreList.innerHTML += `<li>${nameKey} : ${namePoints}</li>`
 }
 
-
+// The logic that makes the modal appear
 const modalAppear = function() {
     modalContainer.classList.toggle('hidden')
     gameContainer.classList.toggle('blur')
 }
 
-// Clicking on Modal Button
+// Clicking on Modal Open Button
 modalBtn.addEventListener('click', function() {
     modalAppear()
     
@@ -298,7 +291,7 @@ modalClose.addEventListener('click', function() {
     modalAppear()
 })
 
-// Reset
+// Reset the game to refresh the page and play again.
 playAgainBtn.addEventListener('click', function() {
     location.reload()
 })
