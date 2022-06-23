@@ -27,6 +27,7 @@ const highScoreList = document.getElementById('highscore-list')
 const modalBtn = document.getElementById('modal-btn')
 const modalClose = document.getElementById('modal-close')
 const modalContainer = document.querySelector('.modal-container')
+const playAgainBtn = document.querySelector('.play-again')
 
 // Global Variables
 const numOfQuestions = 5
@@ -274,7 +275,19 @@ submitHighScore.addEventListener('click', function() {
     console.log(newHighScoreLine)
     highScoreContainer.classList.toggle('hidden')
     highScoreList.innerHTML += newHighScoreLine
+
+    console.log(highScoreName, points)
+    localStorage.setItem(highScoreName, points)
+    playAgainBtn.classList.toggle('hidden')
 })
+
+// Load high scores from Local storage
+for(let i = 0; i < localStorage.length; i++) {
+    const nameKey = localStorage.key(i)
+    const namePoints = localStorage.getItem(nameKey)
+
+    highScoreList.innerHTML += `<li>${nameKey} : ${namePoints}</li>`
+}
 
 
 const modalAppear = function() {
@@ -291,4 +304,9 @@ modalBtn.addEventListener('click', function() {
 // Clicking on Modal Close Button
 modalClose.addEventListener('click', function() {
     modalAppear()
+})
+
+// Reset
+playAgainBtn.addEventListener('click', function() {
+    location.reload()
 })
