@@ -30,7 +30,7 @@ const modalContainer = document.querySelector('.modal-container')
 const playAgainBtn = document.querySelector('.play-again')
 
 // Global Variables
-const numOfQuestions = 5
+let numOfQuestions
 let currentAnswer = ''
 let points = 0
 let countdownSeconds = 10
@@ -145,14 +145,6 @@ const questions = [{
 },
 
 ]
-// const timesUp = function() {
-    
-//     console.log('Times up')
-//     timer.innerHTML = 'Time\'s up!'
-//     clearInterval(refreshIntervalID)
-//     countdownSeconds === 0
-//     gameOver()
-// }
 
 
 // // Timer 
@@ -174,23 +166,31 @@ const startTimer = function() {
 }
 
 
+
 // Function to randomly select a question from the list
 const pickQuestion = function() {
-    let questionPick = Math.floor(Math.random() * questions.length)
-    let currentQuestion = questions[questionPick]
-    console.log(currentQuestion.question)
-
-    question.innerHTML = currentQuestion.question
-    ans1.innerHTML = currentQuestion.a
-    ans2.innerHTML = currentQuestion.b
-    ans3.innerHTML = currentQuestion.c
-    ans4.innerHTML = currentQuestion.d
-
-    currentAnswer = currentQuestion.ans
-
-    questions.splice(questionPick, 1)
-
-    console.log(currentAnswer)
+    if (questions.length !== 0) {
+        let questionPick = Math.floor(Math.random() * questions.length)
+        let currentQuestion = questions[questionPick]
+        console.log(currentQuestion.question)
+    
+    
+        question.innerHTML = currentQuestion.question
+        ans1.innerHTML = currentQuestion.a
+        ans2.innerHTML = currentQuestion.b
+        ans3.innerHTML = currentQuestion.c
+        ans4.innerHTML = currentQuestion.d
+    
+        currentAnswer = currentQuestion.ans
+    
+        questions.splice(questionPick, 1)
+    
+        console.log(currentAnswer)
+        numOfQuestions = questions.length
+    } else {
+        gameOver()
+    }
+    
     
 
 }
@@ -246,27 +246,27 @@ ans4.addEventListener('click', function() {
 // Listens to when you select an answer
 for (let i = 0; i < choice.length; i++) {
     choice[i].addEventListener('click', function() {
-        pickQuestion()
-
+        pickQuestion();
+        console.log(questions.length)
+        console.log(questions)
+        console.log(numOfQuestions)
     })
 }
 
-const gameOver = function() {
+
+
+function gameOver () {
     highScoreContainer.classList.toggle('hidden')
     clearInterval(refreshIntervalID)
     console.log(points)
     scoreFinal.innerHTML = points
 }
+if (numOfQuestions === 0) {
+    console.log('It works')
+    gameOver()
+}
+    
 
-// const timesUp = function() {
-//     if(countdownSeconds < 0) {
-//         clearInterval(refreshIntervalID)
-//         console.log('Times up')
-//     }
-// }
-// timesUp()
-
-// setTimeout
 
 // Modal
 submitHighScore.addEventListener('click', function() {
