@@ -20,7 +20,10 @@ const score = document.getElementById('score')
 const scoreFinal = document.getElementById('score-final')
 const timer = document.getElementById('timer')
 const secondsEl = document.getElementById('seconds')
+const highScoreInput = document.getElementById('high-score')
+const submitHighScore = document.getElementById('submit-score')
 const highScoreContainer = document.querySelector('.high-score-container')
+const highScoreList = document.getElementById('highscore-list')
 const modalBtn = document.getElementById('modal-btn')
 const modalClose = document.getElementById('modal-close')
 const modalContainer = document.querySelector('.modal-container')
@@ -31,6 +34,7 @@ let currentAnswer = ''
 let points = 0
 let countdownSeconds = 10
 let refreshIntervalID
+let highScoreName = ''
 
 
 
@@ -247,7 +251,7 @@ for (let i = 0; i < choice.length; i++) {
 }
 
 const gameOver = function() {
-    highScoreContainer.classList.remove('hidden')
+    highScoreContainer.classList.toggle('hidden')
     clearInterval(refreshIntervalID)
     console.log(points)
     scoreFinal.innerHTML = points
@@ -262,6 +266,16 @@ const gameOver = function() {
 // timesUp()
 
 // setTimeout
+
+// Modal
+submitHighScore.addEventListener('click', function() {
+    highScoreName = highScoreInput.value
+    const newHighScoreLine = `<li>${highScoreName} : ${points}</li>`
+    console.log(newHighScoreLine)
+    highScoreContainer.classList.toggle('hidden')
+    highScoreList.innerHTML += newHighScoreLine
+})
+
 
 const modalAppear = function() {
     modalContainer.classList.toggle('hidden')
